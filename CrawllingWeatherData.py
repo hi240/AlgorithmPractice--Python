@@ -1,16 +1,21 @@
 
+from urllib.parse import quote_plus
+from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-
 from selenium.webdriver.support.ui import Select
 
 import time
+import sys
+
+sys.stdout=open('output.txt','a')
 
 driver = webdriver.Chrome()
 url = 'https://ccmc.gsfc.nasa.gov/modelweb/models/nrlmsise00.php'
 driver.get(url)
 action = ActionChains(driver)
+
 
 #year
 driver.find_element_by_name("year").click()
@@ -20,9 +25,13 @@ action.send_keys(Keys.BACKSPACE)
 action.send_keys(Keys.BACKSPACE)
 action.send_keys("2019").perform()
 
+
+def month(num) :
+    select = Select(driver.find_element_by_name('month'))
+    select.select_by_index(index=num-1)
+
 #month
-select = Select(driver.find_element_by_name('month'))
-select.select_by_index(index=1)
+month(2)
 
 #day
 driver.find_element_by_name("day").click()
@@ -31,27 +40,64 @@ action.send_keys(Keys.BACKSPACE)
 action.send_keys(Keys.BACKSPACE)
 action.send_keys(Keys.BACKSPACE)
 action.send_keys("15").perform()
-time.sleep(1)
+time.sleep(3)
+
+def latitude(num) :
+    driver.find_element_by_name("latitude").click()
+    action.send_keys(Keys.BACKSPACE)
+    action.send_keys(Keys.BACKSPACE)
+    action.send_keys(Keys.BACKSPACE)
+    action.send_keys(num).perform()
+    time.sleep(3)
+
+def longitude(num) :
+    driver.find_element_by_name("longitude").click()
+    action.send_keys(Keys.BACKSPACE)
+    action.send_keys(Keys.BACKSPACE)
+    action.send_keys(Keys.BACKSPACE)
+    action.send_keys(num).perform()
+    time.sleep(3)  
+
+#latitude
+latitude(-90)
+
+#longitude
+longitude(0)
 
 #checkbox
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[2]/th[1]/table/tbody/tr[1]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[4]/th[1]/table/tbody/tr[3]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[4]/th[1]/table/tbody/tr[4]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[4]/th[1]/table/tbody/tr[5]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[1]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[2]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[3]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[4]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[5]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[6]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[6]/th[1]/table/tbody/tr[1]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[6]/th[1]/table/tbody/tr[2]/td/input").click()
-driver.find_element_by_xpath("//*[@id='content']/form/table[1]/tbody/tr[6]/th[1]/table/tbody/tr[3]/td/input").click()
-time.sleep(5)
+
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[1]/table/tbody/tr[3]/td/input").click()
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[1]/table/tbody/tr[4]/td/input").click()
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[1]/table/tbody/tr[5]/td/input").click()
+time.sleep(1)
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[1]/td//input").click()
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[2]/td//input").click()
+time.sleep(1)
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[3]/td//input").click()
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[4]/td//input").click()
+time.sleep(1)
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[5]/td//input").click()
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[2]/table/tbody/tr[6]/td//input").click()
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[6]/th[1]/table/tbody/tr[1]/td//input").click()
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[6]/th[1]/table/tbody/tr[2]/td//input").click()
+driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[6]/th[1]/table/tbody/tr[3]/td//input").click()
+time.sleep(1)
 
 #submit
 driver.find_element_by_css_selector("input[type='submit']").click()
-"""action.submit()"""
+#action.submit()
+html=driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+print(soup.find('pre').get_text())
+
+#restart
+driver.back()
+latitude(-80)
+driver.find_element_by_css_selector("input[type='submit']").click()
+print(soup.find('pre').get_text())
+
+#tab-open
+#driver.execute_script('window.open("https://ccmc.gsfc.nasa.gov/modelweb/models/nrlmsise00.php");')
 
 class Keys(object):
     """

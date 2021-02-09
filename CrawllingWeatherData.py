@@ -90,11 +90,29 @@ html=driver.page_source
 soup = BeautifulSoup(html, 'html.parser')
 print(soup.find('pre').get_text())
 
-#restart
-driver.back()
-latitude(-80)
-driver.find_element_by_css_selector("input[type='submit']").click()
-print(soup.find('pre').get_text())
+#restart 
+
+#longitude 10~360
+for i in range(10,360,10):
+    driver.back()
+    longitude(i)
+    driver.find_element_by_css_selector("input[type='submit']").click()
+    print(soup.find('pre').get_text())
+#latitude -80~90 수정필요
+for i in range(-80,90,10):
+    driver.back()
+    latitude(i)
+    driver.find_element_by_css_selector("input[type='submit']").click()
+    print(soup.find('pre').get_text())
+    #longitude 10~360
+    for i in range(0,360,10):
+        driver.back()
+        longitude(i)
+        driver.find_element_by_css_selector("input[type='submit']").click()
+        print(soup.find('pre').get_text())
+
+#5월,,,7월8월10월꺼도 만들기..
+month(5)
 
 #tab-open
 #driver.execute_script('window.open("https://ccmc.gsfc.nasa.gov/modelweb/models/nrlmsise00.php");')

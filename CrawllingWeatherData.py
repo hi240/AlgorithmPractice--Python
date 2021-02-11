@@ -14,10 +14,10 @@ url = 'https://ccmc.gsfc.nasa.gov/modelweb/models/nrlmsise00.php'
 driver.get(url)
 action = ActionChains(driver)
 
-foldername='20191215/'
+foldername='20190215/'
 
 #year
-yyyy='2019'
+yyyy='2019' #for filename
 driver.find_element_by_name("year").click()
 action.send_keys(Keys.BACKSPACE)
 action.send_keys(Keys.BACKSPACE)
@@ -25,17 +25,18 @@ action.send_keys(Keys.BACKSPACE)
 action.send_keys(Keys.BACKSPACE)
 action.send_keys("2019").perform()
 
+#month
+
 def month(num) :
     select = Select(driver.find_element_by_name('month'))
     select.select_by_index(index=num-1)
 
-#month
-mm='12'
-month(12)
+mm='02' #for filename
+month(2)
 time.sleep(1)
 
 #day
-dd='15'
+dd='15' #for filename
 driver.find_element_by_name("day").click()
 action.send_keys(Keys.BACKSPACE)
 action.send_keys(Keys.BACKSPACE)
@@ -47,9 +48,9 @@ time.sleep(1)
 #latitude
 ttt=''
 def latitude(num) :
-    global ttt
+    global ttt #for filename
     t=num+90
-    ttt=str(t).zfill(3)
+    ttt=str(t).zfill(3) 
     driver.find_element_by_name("latitude").click()
     action.send_keys(Keys.BACKSPACE)
     action.send_keys(Keys.BACKSPACE)
@@ -57,12 +58,10 @@ def latitude(num) :
     action.send_keys(num).perform()
     time.sleep(1)
 
-latitude(70)
-
 #longitude
 ggg=''
 def longitude(num) :
-    global ggg
+    global ggg #for filename
     ggg=str(num).zfill(3)
     driver.find_element_by_name("longitude").click()
     action.send_keys(Keys.BACKSPACE)
@@ -71,6 +70,7 @@ def longitude(num) :
     action.send_keys(num).perform()
     time.sleep(1)  
 
+latitude(0)
 longitude(0)
 
 #stepsize
@@ -82,7 +82,6 @@ action.send_keys("10").perform()
 time.sleep(1)
 
 #checkbox
-
 driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[1]/table/tbody/tr[3]/td/input").click()
 driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[1]/table/tbody/tr[4]/td/input").click()
 driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[4]/th[1]/table/tbody/tr[5]/td/input").click()
@@ -100,15 +99,17 @@ driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[6]
 driver.find_element_by_xpath("/html/body/div[3]/div[1]/form/table[1]/tbody/tr[6]/th[1]/table/tbody/tr[3]/td//input").click()
 time.sleep(1)
 
-
+#filename
 sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
 
 #submit
 driver.find_element_by_css_selector("input[type='submit']").click()
+
 #action.submit()
 html=driver.page_source
 soup = BeautifulSoup(html, 'html.parser')
 print(soup.find('pre').get_text())
+
 
 #restart
 
@@ -122,85 +123,85 @@ def repeat() :
         print(soup.find('pre').get_text())
 repeat()
 
-# driver.back()
-# latitude(-80)
-# longitude(0)
-# sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
-# driver.find_element_by_css_selector("input[type='submit']").click()
-# html=driver.page_source
-# soup = BeautifulSoup(html, 'html.parser')
-# print(soup.find('pre').get_text())
-# repeat()
+driver.back()
+latitude(-80)
+longitude(0)
+sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
+driver.find_element_by_css_selector("input[type='submit']").click()
+html=driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+print(soup.find('pre').get_text())
+repeat()
 
-# driver.back()
-# latitude(-70)
-# longitude(0)
-# sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
-# driver.find_element_by_css_selector("input[type='submit']").click()
-# html=driver.page_source
-# soup = BeautifulSoup(html, 'html.parser')
-# print(soup.find('pre').get_text())
-# repeat()
+driver.back()
+latitude(-70)
+longitude(0)
+sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
+driver.find_element_by_css_selector("input[type='submit']").click()
+html=driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+print(soup.find('pre').get_text())
+repeat()
 
-# driver.back()
-# latitude(-60)
-# longitude(0)
-# sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
-# driver.find_element_by_css_selector("input[type='submit']").click()
-# html=driver.page_source
-# soup = BeautifulSoup(html, 'html.parser')
-# print(soup.find('pre').get_text())
-# repeat()
+driver.back()
+latitude(-60)
+longitude(0)
+sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
+driver.find_element_by_css_selector("input[type='submit']").click()
+html=driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+print(soup.find('pre').get_text())
+repeat()
 
-# driver.back()
-# latitude(-50)
-# longitude(0)
-# sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
-# driver.find_element_by_css_selector("input[type='submit']").click()
-# html=driver.page_source
-# soup = BeautifulSoup(html, 'html.parser')
-# print(soup.find('pre').get_text())
-# repeat()
+driver.back()
+latitude(-50)
+longitude(0)
+sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
+driver.find_element_by_css_selector("input[type='submit']").click()
+html=driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+print(soup.find('pre').get_text())
+repeat()
 
-# driver.back()
-# latitude(-40)
-# longitude(0)
-# sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
-# driver.find_element_by_css_selector("input[type='submit']").click()
-# html=driver.page_source
-# soup = BeautifulSoup(html, 'html.parser')
-# print(soup.find('pre').get_text())
-# repeat()
+driver.back()
+latitude(-40)
+longitude(0)
+sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
+driver.find_element_by_css_selector("input[type='submit']").click()
+html=driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+print(soup.find('pre').get_text())
+repeat()
 
-# driver.back()
-# latitude(-30)
-# longitude(0)
-# sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
-# driver.find_element_by_css_selector("input[type='submit']").click()
-# html=driver.page_source
-# soup = BeautifulSoup(html, 'html.parser')
-# print(soup.find('pre').get_text())
-# repeat()
+driver.back()
+latitude(-30)
+longitude(0)
+sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
+driver.find_element_by_css_selector("input[type='submit']").click()
+html=driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+print(soup.find('pre').get_text())
+repeat()
 
-# driver.back()
-# latitude(-20)
-# longitude(0)
-# sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
-# driver.find_element_by_css_selector("input[type='submit']").click()
-# html=driver.page_source
-# soup = BeautifulSoup(html, 'html.parser')
-# print(soup.find('pre').get_text())
-# repeat()
+driver.back()
+latitude(-20)
+longitude(0)
+sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
+driver.find_element_by_css_selector("input[type='submit']").click()
+html=driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+print(soup.find('pre').get_text())
+repeat()
 
-# driver.back()
-# latitude(-10)
-# longitude(0)
-# sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
-# driver.find_element_by_css_selector("input[type='submit']").click()
-# html=driver.page_source
-# soup = BeautifulSoup(html, 'html.parser')
-# print(soup.find('pre').get_text())
-# repeat()
+driver.back()
+latitude(-10)
+longitude(0)
+sys.stdout=open(foldername+yyyy+mm+dd+ttt+ggg+'.txt','w')
+driver.find_element_by_css_selector("input[type='submit']").click()
+html=driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+print(soup.find('pre').get_text())
+repeat()
 
 # driver.back()
 # latitude(0)
@@ -304,6 +305,7 @@ repeat()
 
 #################################################
 
+#Loop firsttime
 #latitude -80~90 #longitude 10~360
 # for j in range(-80,100,10):
 #     driver.back()
@@ -319,9 +321,6 @@ repeat()
 #         driver.find_element_by_css_selector("input[type='submit']").click()
 #         print(soup.find('pre').get_text())
 
-
-#tab-open
-#driver.execute_script('window.open("https://ccmc.gsfc.nasa.gov/modelweb/models/nrlmsise00.php");')
 
 class Keys(object):
     """

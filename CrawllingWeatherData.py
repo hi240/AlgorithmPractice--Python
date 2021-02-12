@@ -9,7 +9,6 @@ from selenium.webdriver.support.ui import Select
 import time
 import sys
 
-
 driver = webdriver.Chrome()
 url = 'https://ccmc.gsfc.nasa.gov/modelweb/models/nrlmsise00.php'
 driver.get(url)

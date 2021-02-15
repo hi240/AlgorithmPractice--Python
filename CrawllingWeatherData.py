@@ -39,7 +39,7 @@ def longitude(num) :
     action.send_keys(Keys.BACKSPACE)
     action.send_keys(num).perform()
     time.sleep(1)  
-  #longitude 10~360
+#longitude 10~360
 def repeat() :
     for i in range(10,370,10):
         driver.back()

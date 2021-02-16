@@ -78,7 +78,7 @@ action.send_keys("15").perform()
 time.sleep(1)
 
 #latitude
-latitude(0)
+latitude(-90)
 
 #longitude
 longitude(0)

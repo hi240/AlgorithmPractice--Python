@@ -22,6 +22,8 @@ driver.find_element_by_name('password').send_keys(' ')
 driver.find_element_by_xpath('//*[@id="loginForm"]/div[1]/div[3]/button').submit()
 
 time.sleep(5)
+driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button').click()
+
 
 driver.execute_script("document.querySelectorAll('.-nal3')[1].click();")
 time.sleep(1)
@@ -38,14 +40,11 @@ followers = soup.findAll('a',['FPmhX','notranslate','_0imsa'])
 followers_text = []
 for follower in followers:
     followers_text.append(follower.get_text())
-driver.find_element_by_xpath('/html/body/div[4]/div/div/div[1]/div/div[2]/button').click()
 
 time.sleep(0.5)
 
 driver.execute_script("document.querySelectorAll('.-nal3')[2].click();")
-
 time.sleep(1)
-
 oldHeight = -1
 newHeight = -2
 while oldHeight != newHeight:
@@ -60,8 +59,9 @@ followings_text = []
 for following in followings:
     followings_text.append(following.get_text())
 
-print("팔로잉 수: " + str(len(followings_text)))
-
+##print("following num: " + str(len(followings_text)))
+##print("following list"+str(followings_text))
+##print("follower list"+str(followers_text))
 result = []
 for following in followings_text:
     cnt = 0
@@ -72,7 +72,7 @@ for following in followings_text:
     if cnt == 0:
         result.append(following)
 
-print('맞팔되지 못한 사람 목록: '+str(result))
+print('Who is not follow you: '+str(result))
 
 class Keys(object):
     """

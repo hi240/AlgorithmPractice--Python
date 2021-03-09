@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 import time
 import sys
-
+ 
 driver = webdriver.Chrome()
 url = 'https://www.instagram.com/'
 driver.get(url)
